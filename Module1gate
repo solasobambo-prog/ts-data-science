@@ -1,0 +1,82 @@
+
+# %% --- 1. LIST OPERATIONS ---
+regions = ["North", "South", "East", "West"]
+print(f"First Region: {regions[0]}")
+print(f"Last Region:  {regions[-1]}")
+regions.append("Central")
+print(f"Appended List: {regions}")
+middle_two = regions[1:3]
+print(f"Middle Two Sliced: {middle_two}")
+
+# %% --- 2. DICTIONARY OPERATIONS (THE VLOOKUP MOVE) ---
+region_revenue = {"North": 45000, "South": 62000, "East": 31000}
+print(f"South Revenue lookup: {region_revenue['South']}")
+region_revenue["East"] = 38000
+print(f"Updated East Revenue:  {region_revenue['East']}")
+has_west = "West" in region_revenue
+print(f"Is 'West' in our dictionary? {has_west}")
+
+# %% --- 3. CONTROL FLOW & FUNCTIONS ---
+def tier(revenue):
+    """Grades performance into tiered letter grades based on revenue thresholds."""
+    if revenue >= 60000:
+        return "A"
+    elif revenue >= 40000:
+        return "B"
+    else:
+        return "C"
+
+print(f"65,000 Tier: {tier(65000)}")
+print(f"45,000 Tier: {tier(45000)}")
+print(f"25,000 Tier: {tier(25000)}")
+
+# %% --- 4. LOOPS VS. COMPREHENSIONS ---
+data_rows = [
+    {"region": "North", "revenue": 45000},
+    {"region": "South", "revenue": 62000},
+    {"region": "East", "revenue": 31000},
+    {"region": "West", "revenue": 75000}
+]
+threshold = 40000
+
+# Loop method
+loop_collected = []
+for row in data_rows:
+    if row["revenue"] > threshold:
+        loop_collected.append(row["region"])
+print(f"Collected via Loop:          {loop_collected}")
+
+# Comprehension method
+comp_collected = [row["region"] for row in data_rows if row["revenue"] > threshold]
+print(f"Collected via Comprehension: {comp_collected}")
+
+# %% --- 5. SUMMATION FUNCTION WITH DOCSTRING ---
+def sum_revenue(rows):
+    """Calculates the cumulative sum of revenues across a list of row dictionaries."""
+    total = 0
+    for row in rows:
+        total += row["revenue"]
+    return total
+
+calculated_sum = sum_revenue(data_rows)
+expected_sum = 45000 + 62000 + 31000 + 75000
+print(f"Calculated Sum: {calculated_sum} | Expected Sum: {expected_sum}")
+print(f"Does it match?  {calculated_sum == expected_sum}")
+
+# %% --- 6. CSV DICTREADER ANALYSIS ---
+import csv, io
+csv_data = "region,revenue,tier\nNorth,45000,B\nSouth,62000,A\nEast,31000,C\n"
+reader = csv.DictReader(io.StringIO(csv_data))
+rows_list = list(reader)
+print(f"Number of rows in CSV: {len(rows_list)}")
+print(f"First row's column keys: {list(rows_list[0].keys())}")
+
+# %% --- 7. EXCEPTION HANDLING (TRY/EXCEPT) ---
+def safe_convert(value_str):
+    try:
+        return f"Success! Converted value: {int(value_str)}"
+    except ValueError:
+        return f"Warning: Bypassed invalid numeric string '{value_str}'."
+
+print(safe_convert("52000"))
+print(safe_convert("N/A"))
