@@ -30,3 +30,4 @@ lastname = input("What is your last name? ").strip()
 firstname = input("What is your first name? ").strip()
 print(f"Hello, {lastname.upper()}!")
 print(f"Hello, {firstname.title()}!")
+
