@@ -4,14 +4,20 @@
 print("--- Part 1: Compensation Calculator ---")
 bonus_threshold = 10000
 commission_rate_threshold = 0.3
+total_comp_threshold = 100000
 
 name = input("What is your name? ").strip()
 salary = float(input("What is your salary? "))
 bonus = float(input("What is your bonus? "))
 commission_rate = float(input("What is your commission rate (as a decimal)? "))
 
-if bonus <= bonus_threshold and commission_rate <= commission_rate_threshold:
-    total_compensation = salary + bonus + (salary * commission_rate)
+total_compensation = salary + bonus + (salary * commission_rate)
+
+if (
+    bonus <= bonus_threshold
+    and commission_rate <= commission_rate_threshold
+    and total_compensation <= total_comp_threshold
+):
     print(f"Total compensation for {name or 'Employee'} is: ${total_compensation:.2f}")
 else:
     print(f"Salary entry for {name or 'Employee'} exceeds the threshold.")
